@@ -1,0 +1,8 @@
+services:
+   api:
+      build:
+          context: .
+          dockerfile: Dockerfile
+      ports:
+          - "0707:8000"
+      restart: always
