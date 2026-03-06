@@ -1,0 +1,55 @@
+definitions:
+  models.ChatRequest:
+    properties:
+      prompt:
+        example: Explique o que é Go
+        type: string
+    required:
+    - prompt
+    type: object
+  models.ChatResponse:
+    properties:
+      response:
+        example: Go é uma linguagem de programação...
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        example: Failed to chat with Ollama
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /chat:
+    post:
+      consumes:
+      - application/json
+      description: Sends a prompt to the Ollama model and returns the generated response
+      parameters:
+      - description: Chat prompt
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ChatRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ChatResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Chat with Ollama LLM
+      tags:
+      - chat
+swagger: "2.0"

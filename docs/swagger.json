@@ -1,0 +1,86 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/chat": {
+            "post": {
+                "description": "Sends a prompt to the Ollama model and returns the generated response",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Chat with Ollama LLM",
+                "parameters": [
+                    {
+                        "description": "Chat prompt",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ChatRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ChatResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ChatRequest": {
+            "type": "object",
+            "required": [
+                "prompt"
+            ],
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "example": "Explique o que é Go"
+                }
+            }
+        },
+        "models.ChatResponse": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "string",
+                    "example": "Go é uma linguagem de programação..."
+                }
+            }
+        },
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Failed to chat with Ollama"
+                }
+            }
+        }
+    }
+}
